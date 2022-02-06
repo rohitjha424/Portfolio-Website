@@ -1969,5 +1969,10 @@ header .header-mobile .header-toggle i {
   text-align: justify;
 
 }
-
+.form_colo{
+  color: white !important;
+  
+  width: min-content;
+  
+}
 
