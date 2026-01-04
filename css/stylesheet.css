@@ -1943,13 +1943,12 @@ header .header-mobile .header-toggle i {
 }
 /* Project Items Container ENDS */
 
-.blue_txt{
-  color:rgb(0,51,160);;
+.blue_txt {
+  color: rgb(0, 51, 160);
   font-size: 1.6rem;
   font-weight: bold;
-  
 }
-.serv_item{
+.serv_item {
   background-color: white;
   height: 96%;
   color: black;
@@ -1958,21 +1957,16 @@ header .header-mobile .header-toggle i {
   box-shadow: 5px 10px black;
 }
 
-.serv_img{
-
+.serv_img {
   background-color: #141414;
- 
 }
-.serv_text{
+.serv_text {
   height: 180px;
   margin: 10px;
   text-align: justify;
-
 }
-.form_colo{
+.form_colo {
   color: white !important;
-  
-  width: min-content;
-  
-}
 
+  width: min-content;
+}
