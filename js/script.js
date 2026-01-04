@@ -26,17 +26,16 @@
 //     });
 // });
 
-$(window).on('load', function(){
-    var options = [], i;
-    for( i = 1; i < 37 ; i++ )
-    {
-        options.push('<option value="' + i + '">' + i + '</option>');
-    }
+$(window).on("load", function () {
+  var options = [],
+    i;
+  for (i = 1; i < 37; i++) {
+    options.push('<option value="' + i + '">' + i + "</option>");
+  }
 
-    setTimeout(function() {
-        $('.theme-options').removeClass('active');
-    },3000);
+  setTimeout(function () {
+    $(".theme-options").removeClass("active");
+  }, 3000);
 
-
-    $('#anim-type').append(options);
+  $("#anim-type").append(options);
 });
