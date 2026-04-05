@@ -1,0 +1,239 @@
+/* ── Canvas ───────────────────────────────────────────────────── */
+.particle-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 20% 50%, #0d1b2a 0%, #050d18 60%, #000 100%);
+}
+
+/* ── Hero layout ──────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 760px;
+  width: 100%;
+  text-align: left;
+}
+
+/* ── Fade-in on load ──────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in .greeting   { animation: fadeUp 0.6s ease forwards; opacity: 0; animation-delay: 0.1s; }
+.fade-in .name       { animation: fadeUp 0.6s ease forwards; opacity: 0; animation-delay: 0.25s; }
+.fade-in .role-wrapper { animation: fadeUp 0.6s ease forwards; opacity: 0; animation-delay: 0.4s; }
+.fade-in .bio        { animation: fadeUp 0.6s ease forwards; opacity: 0; animation-delay: 0.55s; }
+.fade-in .cta-group  { animation: fadeUp 0.6s ease forwards; opacity: 0; animation-delay: 0.7s; }
+.fade-in .socials    { animation: fadeUp 0.6s ease forwards; opacity: 0; animation-delay: 0.85s; }
+
+/* ── Typography ───────────────────────────────────────────────── */
+.greeting {
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 1rem;
+  color: #63b3ed;
+  letter-spacing: 0.08em;
+  margin: 0 0 10px;
+}
+
+.name {
+  font-family: 'Syne', 'Helvetica Neue', sans-serif;
+  font-size: clamp(2.8rem, 7vw, 5.2rem);
+  font-weight: 800;
+  color: #f0f4ff;
+  margin: 0 0 14px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  /* subtle glow */
+  text-shadow: 0 0 40px rgba(99, 179, 237, 0.18);
+}
+
+/* ── Typing row ───────────────────────────────────────────────── */
+.role-wrapper {
+  display: flex;
+  align-items: center;
+  font-family: 'Fira Code', monospace;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  color: #90cdf4;
+  margin-bottom: 24px;
+  min-height: 2rem;
+}
+
+.role-label {
+  color: #718096;
+}
+
+.typing-text {
+  color: #63b3ed;
+  font-weight: 600;
+}
+
+/* blinking cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.cursor {
+  display: inline-block;
+  color: #4299e1;
+  font-weight: 300;
+  margin-left: 2px;
+  animation: blink 0.95s step-start infinite;
+}
+
+/* ── Bio ──────────────────────────────────────────────────────── */
+.bio {
+  font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1.05rem;
+  color: #a0aec0;
+  line-height: 1.75;
+  max-width: 560px;
+  margin: 0 0 36px;
+}
+
+/* ── CTA buttons ──────────────────────────────────────────────── */
+.cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  letter-spacing: 0.02em;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+/* Solid primary */
+.btn-primary {
+  background: linear-gradient(135deg, #3182ce, #63b3ed);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(49, 130, 206, 0.4);
+}
+.btn-primary:hover {
+  box-shadow: 0 8px 30px rgba(49, 130, 206, 0.55);
+}
+
+/* Outlined */
+.btn-outline {
+  background: transparent;
+  color: #63b3ed;
+  border: 1.5px solid #63b3ed;
+  box-shadow: 0 0 0 rgba(99,179,237,0);
+}
+.btn-outline:hover {
+  background: rgba(99, 179, 237, 0.08);
+  box-shadow: 0 4px 20px rgba(99, 179, 237, 0.2);
+}
+
+/* Ghost/subtle */
+.btn-ghost {
+  background: rgba(255,255,255,0.04);
+  color: #a0aec0;
+  border: 1.5px solid rgba(255,255,255,0.1);
+}
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.08);
+  color: #e2e8f0;
+}
+
+.btn-icon {
+  font-size: 1rem;
+}
+
+/* ── Social icons ─────────────────────────────────────────────── */
+.socials {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #718096;
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s, transform 0.2s, border-color 0.2s;
+}
+
+.social-link:hover {
+  color: #63b3ed;
+  background: rgba(99, 179, 237, 0.1);
+  border-color: rgba(99, 179, 237, 0.35);
+  transform: translateY(-3px);
+}
+
+/* ── Scroll hint ──────────────────────────────────────────────── */
+.scroll-hint {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #4a5568;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  animation: fadeUp 0.6s ease forwards 1.1s;
+  opacity: 0;
+}
+
+@keyframes scrollPulse {
+  0%   { transform: scaleY(0); transform-origin: top; opacity: 0.6; }
+  50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+}
+
+.scroll-line {
+  width: 1.5px;
+  height: 42px;
+  background: linear-gradient(to bottom, #63b3ed, transparent);
+  animation: scrollPulse 1.8s ease-in-out infinite;
+}
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .hero-content { text-align: center; }
+  .cta-group    { justify-content: center; }
+  .socials      { justify-content: center; }
+  .bio          { margin-inline: auto; }
+  .role-wrapper { justify-content: center; }
+}
