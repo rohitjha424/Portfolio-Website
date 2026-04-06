@@ -46,10 +46,10 @@ export class Home implements OnInit, OnDestroy {
     const currentRole = this.roles[this.roleIndex];
 
     if (!this.isDeleting) {
-      this.displayText = currentRole.slice(0, this.charIndex);
       this.charIndex++;
+      this.displayText = currentRole.slice(0, this.charIndex);
 
-      if (this.charIndex > currentRole.length) {
+      if (this.charIndex === currentRole.length) {
         // Finished typing — pause then delete
         this.typingTimer = setTimeout(() => {
           this.isDeleting = true;
@@ -71,7 +71,8 @@ export class Home implements OnInit, OnDestroy {
       }
     }
 
-    this.typingTimer = setTimeout(() => this.startTyping(), this.isDeleting ? 55 : 110);
+    const speed = this.isDeleting ? 55 : 110;
+    this.typingTimer = setTimeout(() => this.startTyping(), speed);
   }
 
   // ── Particle canvas ───────────────────────────────────────────────
