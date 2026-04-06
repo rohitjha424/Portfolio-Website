@@ -1,5 +1,21 @@
+/* Global dark base */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 html, body {
   height: 100%;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  padding: 0;
+  background-color: #050d18;
+  color: #f0f4ff;
+  font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+/* Remove default anchor styles globally */
+a {
+  text-decoration: none;
+  color: inherit;
 }
