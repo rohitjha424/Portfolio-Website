@@ -12,10 +12,7 @@ export class Home implements OnInit, OnDestroy {
   // Typing animation
   displayText = '';
   private roles = [
-    'Full Stack Developer',
-    'Angular Enthusiast',
-    'UI/UX Craftsman',
-    'Problem Solver',
+    'Full Stack Developer'
   ];
   private roleIndex = 0;
   private charIndex = 0;
@@ -43,37 +40,32 @@ export class Home implements OnInit, OnDestroy {
 
   // ── Typing animation ──────────────────────────────────────────────
   private startTyping() {
-    const currentRole = this.roles[this.roleIndex];
+  const currentRole = this.roles[0]; // Always use the first role
 
-    if (!this.isDeleting) {
-      this.charIndex++;
-      this.displayText = currentRole.slice(0, this.charIndex);
+  if (!this.isDeleting) {
+    this.charIndex++;
+    this.displayText = currentRole.slice(0, this.charIndex);
 
-      if (this.charIndex === currentRole.length) {
-        // Finished typing — pause then delete
-        this.typingTimer = setTimeout(() => {
-          this.isDeleting = true;
-          this.startTyping();
-        }, 1800);
-        return;
-      }
-    } else {
-      this.displayText = currentRole.slice(0, this.charIndex);
-      this.charIndex--;
-
-      if (this.charIndex < 0) {
-        // Finished deleting — move to next role
-        this.isDeleting = false;
-        this.charIndex = 0;
-        this.roleIndex = (this.roleIndex + 1) % this.roles.length;
-        this.typingTimer = setTimeout(() => this.startTyping(), 400);
-        return;
-      }
+    if (this.charIndex === currentRole.length) {
+      this.isDeleting = true;
+      this.typingTimer = setTimeout(() => this.startTyping(), 1800); // Pause at full text
+      return;
     }
+  } else {
+    this.charIndex--;
+    this.displayText = currentRole.slice(0, this.charIndex);
 
-    const speed = this.isDeleting ? 55 : 110;
-    this.typingTimer = setTimeout(() => this.startTyping(), speed);
+    if (this.charIndex === 0) {
+      this.isDeleting = false;
+      // No need to increment roleIndex since there is only one
+      this.typingTimer = setTimeout(() => this.startTyping(), 400); // Pause when empty
+      return;
+    }
   }
+
+  const speed = this.isDeleting ? 55 : 110;
+  this.typingTimer = setTimeout(() => this.startTyping(), speed);
+}
 
   // ── Particle canvas ───────────────────────────────────────────────
   private initParticles() {

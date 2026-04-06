@@ -65,11 +65,12 @@
 .role-wrapper {
   display: flex;
   align-items: center;
+  flex-wrap: wrap; /* Allows text to wrap if it exceeds width */
   font-family: 'Fira Code', monospace;
   font-size: clamp(1rem, 2.5vw, 1.35rem);
   color: #90cdf4;
   margin-bottom: 24px;
-  min-height: 2rem;
+  min-height: 2.5rem; /* Increased slightly to prevent "jumping" */
 }
 
 .role-label {
@@ -77,8 +78,10 @@
 }
 
 .typing-text {
-  color: #63b3ed;
+color: #63b3ed;
   font-weight: 600;
+  white-space: pre; /* This prevents the text from collapsing */
+  display: inline-block;
 }
 
 /* blinking cursor */
