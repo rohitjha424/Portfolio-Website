@@ -44,32 +44,34 @@ export class Home implements OnInit, OnDestroy {
   // ── Typing animation ──────────────────────────────────────────────
   private startTyping() {
     const currentRole = this.roles[this.roleIndex];
-    const typingSpeed = this.isDeleting ? 55 : 110;
-    const pauseAtEnd = 1800;
-    const pauseAtStart = 400;
 
-    if (!this.isDeleting && this.charIndex <= currentRole.length) {
-      this.displayText = currentRole.slice(0, this.charIndex++);
-    } else if (this.isDeleting && this.charIndex >= 0) {
-      this.displayText = currentRole.slice(0, this.charIndex--);
+    if (!this.isDeleting) {
+      this.displayText = currentRole.slice(0, this.charIndex);
+      this.charIndex++;
+
+      if (this.charIndex > currentRole.length) {
+        // Finished typing — pause then delete
+        this.typingTimer = setTimeout(() => {
+          this.isDeleting = true;
+          this.startTyping();
+        }, 1800);
+        return;
+      }
+    } else {
+      this.displayText = currentRole.slice(0, this.charIndex);
+      this.charIndex--;
+
+      if (this.charIndex < 0) {
+        // Finished deleting — move to next role
+        this.isDeleting = false;
+        this.charIndex = 0;
+        this.roleIndex = (this.roleIndex + 1) % this.roles.length;
+        this.typingTimer = setTimeout(() => this.startTyping(), 400);
+        return;
+      }
     }
 
-    if (!this.isDeleting && this.charIndex > currentRole.length) {
-      this.typingTimer = setTimeout(() => {
-        this.isDeleting = true;
-        this.startTyping();
-      }, pauseAtEnd);
-      return;
-    }
-
-    if (this.isDeleting && this.charIndex < 0) {
-      this.isDeleting = false;
-      this.roleIndex = (this.roleIndex + 1) % this.roles.length;
-      this.typingTimer = setTimeout(() => this.startTyping(), pauseAtStart);
-      return;
-    }
-
-    this.typingTimer = setTimeout(() => this.startTyping(), typingSpeed);
+    this.typingTimer = setTimeout(() => this.startTyping(), this.isDeleting ? 55 : 110);
   }
 
   // ── Particle canvas ───────────────────────────────────────────────
@@ -92,7 +94,10 @@ export class Home implements OnInit, OnDestroy {
 
   private spawnParticles() {
     const count = Math.floor((window.innerWidth * window.innerHeight) / 12000);
-    this.particles = Array.from({ length: count }, () => new Particle(window.innerWidth, window.innerHeight));
+    this.particles = Array.from(
+      { length: count },
+      () => new Particle(window.innerWidth, window.innerHeight),
+    );
   }
 
   private animate() {
