@@ -1,14 +1,13 @@
-import { Routes } from '@angular/router';
+import { Component } from '@angular/core';
+import { Navbar } from './components/navbar/navbar';
+import { Footer } from './components/footer/footer';
 import { Home } from './pages/home/home';
-import { About } from './pages/about/about';
-import { Projects } from './pages/projects/projects';
-import { Services } from './pages/services/services';
-import { Contact } from './pages/contact/contact';
-
-export const routes: Routes = [
-  { path: '', component: Home },
-  { path: 'about', component: About },
-  { path: 'projects', component: Projects },
-  { path: 'services', component: Services },
-  { path: 'contact', component: Contact }
-];
+ 
+@Component({
+  selector: 'app-root',
+  imports: [Navbar, Footer, Home],
+  templateUrl: './app.html',
+  styleUrl: './app.css'
+})
+export class App {}
+ 
