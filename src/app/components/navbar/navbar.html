@@ -1,35 +1,40 @@
-<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
-<mat-toolbar color="primary" class="navbar">
-  <span class="logo" routerLink="/">Rohit Jha</span>
+<nav class="navbar" [class.scrolled]="isScrolled">
+  <!-- Logo -->
+  <span class="logo" (click)="scrollTo('hero')">
+    <span class="logo-bracket">&lt;</span>RJ
+    <span class="logo-bracket">/&gt;</span>
+  </span>
 
-  <span class="spacer"></span>
+  <!-- Desktop nav links -->
+  <ul class="nav-links">
+    <li *ngFor="let link of navLinks">
+      <button
+        class="nav-btn"
+        [class.active]="activeSection === link.anchor"
+        (click)="scrollTo(link.anchor)"
+      >
+        {{ link.label }}
+        <span class="underline-glow"></span>
+      </button>
+    </li>
+  </ul>
 
-  <!-- Desktop Menu -->
-  <div class="nav-links">
-    <a
-      mat-button
-      routerLink="/"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-    >
-      Home
-    </a>
-    <a mat-button routerLink="/about" routerLinkActive="active">About</a>
-    <a mat-button routerLink="/projects" routerLinkActive="active">Projects</a>
-    <a mat-button routerLink="/services" routerLinkActive="active">Services</a>
-    <a mat-button routerLink="/contact" routerLinkActive="active">Contact</a>
-  </div>
-
-  <!-- Mobile Menu -->
-  <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-btn">
-    <mat-icon>menu</mat-icon>
+  <!-- Mobile hamburger -->
+  <button class="hamburger" (click)="toggleMobile()" [class.open]="mobileOpen" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
   </button>
 
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="/">Home</button>
-    <button mat-menu-item routerLink="/about">About</button>
-    <button mat-menu-item routerLink="/projects">Projects</button>
-    <button mat-menu-item routerLink="/services">Services</button>
-    <button mat-menu-item routerLink="/contact">Contact</button>
-  </mat-menu>
-</mat-toolbar>
+  <!-- Mobile dropdown -->
+  <div class="mobile-menu" [class.open]="mobileOpen">
+    <button
+      *ngFor="let link of navLinks"
+      class="mobile-link"
+      [class.active]="activeSection === link.anchor"
+      (click)="scrollTo(link.anchor)"
+    >
+      {{ link.label }}
+    </button>
+  </div>
+</nav>
