@@ -1,31 +1,108 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink],
+  imports: [CommonModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home implements OnInit, OnDestroy {
-  // Typing animation
+
+  // ── Typing animation ─────────────────────────────────────────
   displayText = '';
   private roles = [
-    'Full Stack Developer'
+    'Full Stack Developer',
+    'Angular Enthusiast',
+    'UI/UX Craftsman',
+    'Problem Solver',
   ];
   private roleIndex = 0;
   private charIndex = 0;
   private isDeleting = false;
   private typingTimer: ReturnType<typeof setTimeout> | null = null;
 
-  // Particle canvas
+  // ── Particle canvas ──────────────────────────────────────────
   @ViewChild('particleCanvas', { static: true })
   canvasRef!: ElementRef<HTMLCanvasElement>;
   private ctx!: CanvasRenderingContext2D;
   private particles: Particle[] = [];
   private animationId!: number;
   private resizeHandler!: () => void;
+
+  // ── Skills data ──────────────────────────────────────────────
+  skillGroups = [
+    {
+      category: 'Frontend',
+      icon: '🖥️',
+      skills: ['Angular', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3 / SCSS', 'RxJS'],
+    },
+    {
+      category: 'Backend',
+      icon: '⚙️',
+      skills: ['Node.js', 'Express', 'REST APIs', 'Java', 'Spring Boot'],
+    },
+    {
+      category: 'Tools & DevOps',
+      icon: '🛠️',
+      skills: ['Git & GitHub', 'VS Code', 'Postman', 'Linux', 'Firebase'],
+    },
+    {
+      category: 'Databases',
+      icon: '🗄️',
+      skills: ['MySQL', 'MongoDB', 'PostgreSQL'],
+    },
+  ];
+
+  // ── Projects data ────────────────────────────────────────────
+  projects = [
+    {
+      title: 'Portfolio Website',
+      description: 'This very site — migrated from plain HTML/CSS/JS to Angular 21 with a dark-themed, single-page scroll experience.',
+      tags: ['Angular', 'TypeScript', 'SCSS'],
+      github: 'https://github.com/rohitjha424/Portfolio-Website',
+      live: 'https://rohitjha424.github.io/Portfolio-Website/',
+    },
+    {
+      title: 'Project Two',
+      description: 'Add your project description here. Keep it concise — 1 to 2 sentences covering the problem it solves.',
+      tags: ['Node.js', 'Express', 'MongoDB'],
+      github: '#',
+      live: '#',
+    },
+    {
+      title: 'Project Three',
+      description: 'Add your project description here. Highlight what makes it interesting or what you learned building it.',
+      tags: ['React', 'Firebase', 'CSS'],
+      github: '#',
+      live: '#',
+    },
+  ];
+
+  // ── Services data ────────────────────────────────────────────
+  services = [
+    {
+      icon: '🌐',
+      title: 'Web Development',
+      description: 'End-to-end web apps with modern frameworks — fast, responsive, and production-ready.',
+    },
+    {
+      icon: '📱',
+      title: 'Responsive Design',
+      description: 'Pixel-perfect UIs that look great on every screen size, from mobile to desktop.',
+    },
+    {
+      icon: '🔌',
+      title: 'API Integration',
+      description: 'RESTful API design and integration, connecting frontends to robust backend services.',
+    },
+    {
+      icon: '⚡',
+      title: 'Performance Optimisation',
+      description: 'Auditing and tuning web apps for speed — lazy loading, caching, and bundle optimization.',
+    },
+  ];
 
   ngOnInit() {
     this.startTyping();
@@ -38,87 +115,94 @@ export class Home implements OnInit, OnDestroy {
     window.removeEventListener('resize', this.resizeHandler);
   }
 
-  // ── Typing animation ──────────────────────────────────────────────
-  private startTyping() {
-  const currentRole = this.roles[0]; // Always use the first role
-
-  if (!this.isDeleting) {
-    this.charIndex++;
-    this.displayText = currentRole.slice(0, this.charIndex);
-
-    if (this.charIndex === currentRole.length) {
-      this.isDeleting = true;
-      this.typingTimer = setTimeout(() => this.startTyping(), 1800); // Pause at full text
-      return;
-    }
-  } else {
-    this.charIndex--;
-    this.displayText = currentRole.slice(0, this.charIndex);
-
-    if (this.charIndex === 0) {
-      this.isDeleting = false;
-      // No need to increment roleIndex since there is only one
-      this.typingTimer = setTimeout(() => this.startTyping(), 400); // Pause when empty
-      return;
+  scrollTo(anchor: string) {
+    const el = document.getElementById(anchor);
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 72;
+      window.scrollTo({ top, behavior: 'smooth' });
     }
   }
 
-  const speed = this.isDeleting ? 55 : 110;
-  this.typingTimer = setTimeout(() => this.startTyping(), speed);
-}
+  // ── Typing ───────────────────────────────────────────────────
+  private startTyping() {
+    const currentRole = this.roles[this.roleIndex];
 
-  // ── Particle canvas ───────────────────────────────────────────────
+    if (!this.isDeleting) {
+      this.displayText = currentRole.slice(0, this.charIndex);
+      this.charIndex++;
+
+      if (this.charIndex > currentRole.length) {
+        this.typingTimer = setTimeout(() => {
+          this.isDeleting = true;
+          this.startTyping();
+        }, 1800);
+        return;
+      }
+    } else {
+      this.displayText = currentRole.slice(0, this.charIndex);
+      this.charIndex--;
+
+      if (this.charIndex < 0) {
+        this.isDeleting = false;
+        this.charIndex = 0;
+        this.roleIndex = (this.roleIndex + 1) % this.roles.length;
+        this.typingTimer = setTimeout(() => this.startTyping(), 400);
+        return;
+      }
+    }
+
+    this.typingTimer = setTimeout(
+      () => this.startTyping(),
+      this.isDeleting ? 55 : 110
+    );
+  }
+
+  // ── Particles ────────────────────────────────────────────────
   private initParticles() {
     const canvas = this.canvasRef.nativeElement;
     this.ctx = canvas.getContext('2d')!;
-
-    this.resizeHandler = () => this.resizeCanvas();
+    this.resizeHandler = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      this.spawnParticles();
+    };
     window.addEventListener('resize', this.resizeHandler);
-    this.resizeCanvas();
-    this.spawnParticles();
-    this.animate();
-  }
-
-  private resizeCanvas() {
-    const canvas = this.canvasRef.nativeElement;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    this.spawnParticles();
+    this.animate();
   }
 
   private spawnParticles() {
     const count = Math.floor((window.innerWidth * window.innerHeight) / 12000);
     this.particles = Array.from(
       { length: count },
-      () => new Particle(window.innerWidth, window.innerHeight),
+      () => new Particle(window.innerWidth, window.innerHeight)
     );
   }
 
   private animate() {
     const canvas = this.canvasRef.nativeElement;
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     for (const p of this.particles) {
       p.update(canvas.width, canvas.height);
       p.draw(this.ctx);
     }
-
-    this.connectNearby(canvas);
+    this.connectNearby();
     this.animationId = requestAnimationFrame(() => this.animate());
   }
 
-  private connectNearby(canvas: HTMLCanvasElement) {
+  private connectNearby() {
     const maxDist = 130;
     for (let i = 0; i < this.particles.length; i++) {
       for (let j = i + 1; j < this.particles.length; j++) {
-        const a = this.particles[i];
-        const b = this.particles[j];
-        const dx = a.x - b.x;
-        const dy = a.y - b.y;
+        const a = this.particles[i], b = this.particles[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < maxDist) {
-          const alpha = (1 - dist / maxDist) * 0.4;
+          const alpha = (1 - dist / maxDist) * 0.35;
           this.ctx.strokeStyle = `rgba(99,179,237,${alpha})`;
-          this.ctx.lineWidth = 0.8;
+          this.ctx.lineWidth = 0.7;
           this.ctx.beginPath();
           this.ctx.moveTo(a.x, a.y);
           this.ctx.lineTo(b.x, b.y);
@@ -129,31 +213,21 @@ export class Home implements OnInit, OnDestroy {
   }
 }
 
-// ── Particle class ────────────────────────────────────────────────────
 class Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  radius: number;
-  alpha: number;
-
+  x: number; y: number; vx: number; vy: number; radius: number; alpha: number;
   constructor(w: number, h: number) {
     this.x = Math.random() * w;
     this.y = Math.random() * h;
-    this.vx = (Math.random() - 0.5) * 0.55;
-    this.vy = (Math.random() - 0.5) * 0.55;
-    this.radius = Math.random() * 2 + 1;
-    this.alpha = Math.random() * 0.5 + 0.2;
+    this.vx = (Math.random() - 0.5) * 0.5;
+    this.vy = (Math.random() - 0.5) * 0.5;
+    this.radius = Math.random() * 1.8 + 0.8;
+    this.alpha = Math.random() * 0.45 + 0.15;
   }
-
   update(w: number, h: number) {
-    this.x += this.vx;
-    this.y += this.vy;
+    this.x += this.vx; this.y += this.vy;
     if (this.x < 0 || this.x > w) this.vx *= -1;
     if (this.y < 0 || this.y > h) this.vy *= -1;
   }
-
   draw(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
