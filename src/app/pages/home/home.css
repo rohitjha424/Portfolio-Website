@@ -27,7 +27,7 @@
   font-size: clamp(1.8rem, 4vw, 2.6rem);
   font-weight: 800;
   color: #f0f4ff;
-  margin: 0 0 8px;
+  margin: 0 0 27px;
   letter-spacing: -0.02em;
 }
 
@@ -308,6 +308,11 @@
   color: #718096;
 }
 
+/* Centre the About heading + subtitle */
+.about-section .section-title,
+.about-section .section-sub {
+  text-align: center;
+}
 
 /* ══════════════════════════════════════════════════════════════
    SKILLS
