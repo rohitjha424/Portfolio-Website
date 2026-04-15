@@ -1,8 +1,9 @@
+<!-- Particle canvas (background layer) -->
+<canvas #particleCanvas class="particle-canvas"></canvas>
+
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!--  HERO SECTION                                              -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<canvas #particleCanvas class="particle-canvas"></canvas>
-
 <section id="hero" class="section hero-section">
   <div class="hero-content fade-in">
     <p class="greeting">👋 Hello, I'm</p>
@@ -21,19 +22,16 @@
     </p>
 
     <div class="socials">
-      <!-- GitHub -->
       <a href="https://github.com/rohitjha424" target="_blank" class="social-link" aria-label="GitHub">
         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
           <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
         </svg>
       </a>
-      <!-- LinkedIn -->
       <a href="https://linkedin.com/in/rohitjha424" target="_blank" class="social-link" aria-label="LinkedIn">
         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
         </svg>
       </a>
-      <!-- Email -->
       <a href="mailto:rohitjha424@gmail.com" class="social-link" aria-label="Email">
         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
           <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/>
@@ -55,10 +53,10 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 <section id="about" class="section about-section">
   <div class="section-inner">
-    <h2 class="section-title">About <span class="accent">Me</span></h2>
+    <h2 class="section-title" reveal="fade-up">About <span class="accent">Me</span></h2>
     <div class="about-grid">
-      <!-- Photo placeholder -->
-      <div class="about-photo-wrap">
+
+      <div class="about-photo-wrap" reveal="fade-right">
         <div class="photo-frame">
           <img
             src="profile.jpg"
@@ -66,7 +64,6 @@
             class="profile-img"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
           />
-          <!-- Fallback avatar shown until photo is uploaded -->
           <div class="avatar-fallback">
             <span>RJ</span>
           </div>
@@ -76,8 +73,7 @@
         </div>
       </div>
 
-      <!-- Text -->
-      <div class="about-text">
+      <div class="about-text" reveal="fade-left">
         <p>
           Hey! I'm <strong>Rohit Jha</strong>, a passionate Full Stack Developer based in India.
           I love turning complex problems into clean, elegant solutions — whether that's a
@@ -95,7 +91,7 @@
 
         <div class="about-stats">
           <div class="stat">
-            <span class="stat-num">4+</span>
+            <span class="stat-num">3+</span>
             <span class="stat-label">Years Learning</span>
           </div>
           <div class="stat">
@@ -122,11 +118,16 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 <section id="skills" class="section skills-section">
   <div class="section-inner">
-    <h2 class="section-title">Tech <span class="accent">Stack</span></h2>
-    <p class="section-sub">Tools and technologies I work with</p>
+    <h2 class="section-title" reveal="fade-up">Tech <span class="accent">Stack</span></h2>
+    <p class="section-sub" reveal="fade-up" [revealDelay]="100">Tools and technologies I work with</p>
 
     <div class="skills-grid">
-      <div class="skill-card" *ngFor="let group of skillGroups">
+      <div
+        class="skill-card"
+        *ngFor="let group of skillGroups; let i = index"
+        reveal="zoom"
+        [revealDelay]="i * 100"
+      >
         <div class="skill-card-header">
           <span class="skill-icon">{{ group.icon }}</span>
           <span class="skill-category">{{ group.category }}</span>
@@ -145,11 +146,16 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 <section id="projects" class="section projects-section">
   <div class="section-inner">
-    <h2 class="section-title">My <span class="accent">Projects</span></h2>
-    <p class="section-sub">Things I've built — and learned from</p>
+    <h2 class="section-title" reveal="fade-up">My <span class="accent">Projects</span></h2>
+    <p class="section-sub" reveal="fade-up" [revealDelay]="100">Things I've built — and learned from</p>
 
     <div class="projects-grid">
-      <div class="project-card" *ngFor="let p of projects">
+      <div
+        class="project-card"
+        *ngFor="let p of projects; let i = index"
+        reveal="fade-up"
+        [revealDelay]="i * 120"
+      >
         <div class="project-top">
           <span class="project-folder">📁</span>
           <div class="project-links">
@@ -181,11 +187,16 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 <section id="services" class="section services-section">
   <div class="section-inner">
-    <h2 class="section-title">What I <span class="accent">Offer</span></h2>
-    <p class="section-sub">How I can help you</p>
+    <h2 class="section-title" reveal="fade-up">What I <span class="accent">Offer</span></h2>
+    <p class="section-sub" reveal="fade-up" [revealDelay]="100">How I can help you</p>
 
     <div class="services-grid">
-      <div class="service-card" *ngFor="let s of services">
+      <div
+        class="service-card"
+        *ngFor="let s of services; let i = index"
+        reveal="fade-up"
+        [revealDelay]="i * 100"
+      >
         <div class="service-icon">{{ s.icon }}</div>
         <h3 class="service-title">{{ s.title }}</h3>
         <p class="service-desc">{{ s.description }}</p>
@@ -200,16 +211,18 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 <section id="contact" class="section contact-section">
   <div class="section-inner contact-inner">
-    <h2 class="section-title">Get In <span class="accent">Touch</span></h2>
-    <p class="section-sub">
+    <h2 class="section-title" reveal="fade-up">Get In <span class="accent">Touch</span></h2>
+    <p class="section-sub" reveal="fade-up" [revealDelay]="100">
       Have a project in mind or just want to say hi?<br>My inbox is always open.
     </p>
 
-    <a href="mailto:rohitjha424@gmail.com" class="btn btn-primary contact-btn">
-      ✉️ Say Hello
-    </a>
+    <div reveal="zoom" [revealDelay]="200">
+      <a href="mailto:rohitjha424@gmail.com" class="btn btn-primary contact-btn">
+        ✉️ Say Hello
+      </a>
+    </div>
 
-    <div class="contact-socials">
+    <div class="contact-socials" reveal="fade-up" [revealDelay]="300">
       <a href="https://github.com/rohitjha424" target="_blank" class="social-link">GitHub</a>
       <span class="dot">·</span>
       <a href="https://linkedin.com/in/rohitjha424" target="_blank" class="social-link">LinkedIn</a>
