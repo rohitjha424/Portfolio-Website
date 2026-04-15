@@ -16,8 +16,8 @@ export class Home implements OnInit, OnDestroy {
   displayText = '';
   private roles = [
     'Full Stack Developer',
+    'Java Backend Developer',
     'Angular Enthusiast',
-    'UI/UX Craftsman',
     'Problem Solver',
   ];
   private roleIndex = 0;
@@ -67,19 +67,19 @@ export class Home implements OnInit, OnDestroy {
       live: 'https://rohitjha424.github.io/Portfolio-Website/',
     },
     {
-      title: 'Project Two',
-      description: 'Add your project description here. Keep it concise — 1 to 2 sentences covering the problem it solves.',
-      tags: ['Node.js', 'Express', 'MongoDB'],
-      github: '#',
-      live: '#',
+      title: 'ChitChat - A Real-Time Chat Application',
+      description: 'A real-time chat application built using Node.js, Express, and Socket.IO that allows users to create private chat rooms using unique 6-letter room codes and communicate instantly.',
+      tags: ['HTML', 'JavaScript', 'CSS', 'Express', 'Node.js', 'Socket.IO'],
+      github: 'https://github.com/rohitjha424/ChitChat',
+      live: 'https://chitchat-lekw.onrender.com/',
     },
     {
-      title: 'Project Three',
-      description: 'Add your project description here. Highlight what makes it interesting or what you learned building it.',
-      tags: ['React', 'Firebase', 'CSS'],
+      title: 'Enterprise Incident Management System',
+      description: 'Built an enterprise Incident Management System handling SLA tracking, escalation workflows, and role-based access using Spring Boot.',
+      tags: ['Java', 'SpringBoot', 'Hibernate', 'REST API', 'MySQL', 'Docker', 'Redis','Kafka'],
       github: '#',
       live: '#',
-    },
+    }
   ];
 
   // ── Services data ────────────────────────────────────────────
