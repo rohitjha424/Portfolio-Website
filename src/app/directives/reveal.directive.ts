@@ -5,7 +5,6 @@ import { Directive, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
   standalone: true,
 })
 export class RevealDirective implements OnInit, OnDestroy {
-
   // Animation variant — pass as reveal="fade-up" | "fade-left" | "fade-right" | "zoom"
   @Input('reveal') variant: 'fade-up' | 'fade-left' | 'fade-right' | 'zoom' = 'fade-up';
 
@@ -26,17 +25,22 @@ export class RevealDirective implements OnInit, OnDestroy {
     this.observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          // Element entered the view
           el.classList.add('revealed');
-          this.observer.unobserve(el); // fire once only
+        } else {
+          // Element left the view (scrolled past or above)
+          el.classList.remove('revealed');
         }
       },
-      { threshold: 0.12 }
+      { threshold: 0.12 },
     );
 
     this.observer.observe(el);
   }
 
   ngOnDestroy() {
-    this.observer?.disconnect();
+  if (this.observer) {
+    this.observer.disconnect();
   }
+}
 }
