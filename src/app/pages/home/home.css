@@ -134,6 +134,7 @@
   display: inline-block;
   color: #4299e1;
   margin-left: 2px;
+  font-weight: bold;
   animation: blink 0.9s step-start infinite;
 }
 

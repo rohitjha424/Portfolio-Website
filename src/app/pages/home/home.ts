@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home.css',
 })
 export class Home implements OnInit, OnDestroy {
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   // ── Typing animation ─────────────────────────────────────────
   displayText = '';
@@ -132,6 +134,7 @@ export class Home implements OnInit, OnDestroy {
       this.charIndex++;
 
       if (this.charIndex > currentRole.length) {
+        this.cdr.detectChanges();
         this.typingTimer = setTimeout(() => {
           this.isDeleting = true;
           this.startTyping();
@@ -146,11 +149,13 @@ export class Home implements OnInit, OnDestroy {
         this.isDeleting = false;
         this.charIndex = 0;
         this.roleIndex = (this.roleIndex + 1) % this.roles.length;
+        this.cdr.detectChanges();
         this.typingTimer = setTimeout(() => this.startTyping(), 400);
         return;
       }
     }
 
+    this.cdr.detectChanges();
     this.typingTimer = setTimeout(
       () => this.startTyping(),
       this.isDeleting ? 55 : 110
