@@ -43,17 +43,17 @@ export class Home implements OnInit, OnDestroy {
     {
       category: 'Backend',
       icon: '⚙️',
-      skills: ['Node.js', 'Express', 'REST APIs', 'Java', 'Spring Boot'],
+      skills: ['Java', 'Spring Boot', 'Node.js', 'Express', 'REST APIs', 'Redis' ],
     },
     {
       category: 'Tools & DevOps',
       icon: '🛠️',
-      skills: ['Git & GitHub', 'VS Code', 'Postman', 'Linux', 'Firebase'],
+      skills: ['Git & GitHub', 'VS Code', 'Postman', 'Docker', 'Kafka', 'AWS'],
     },
     {
       category: 'Databases',
       icon: '🗄️',
-      skills: ['MySQL', 'MongoDB', 'PostgreSQL'],
+      skills: ['MySQL', 'PostgreSQL'],
     },
   ];
 
