@@ -64,7 +64,7 @@ export class Home implements OnInit, OnDestroy {
       description: 'This very site — migrated from plain HTML/CSS/JS to Angular 21 with a dark-themed, single-page scroll experience.',
       tags: ['Angular', 'TypeScript', 'SCSS'],
       github: 'https://github.com/rohitjha424/Portfolio-Website',
-      live: 'https://rohitjha424.github.io/Portfolio-Website/',
+      live: 'https://rohit-dev-tl55.onrender.com/',
     },
     {
       title: 'ChitChat - A Real-Time Chat Application',
